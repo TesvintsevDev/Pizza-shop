@@ -1,7 +1,6 @@
 import React from 'react';
 
 const PizzaBlock = (props) => {
-	console.log(props);
   return (
     <div className="pizza-block">
       <img
