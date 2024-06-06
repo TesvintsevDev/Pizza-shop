@@ -19,9 +19,10 @@ body {
   margin: 0 auto;
   border-radius: 10px;
   max-width: 1400px;
-  @media (max-width: 768px) {
-    width: calc(100% - 40px);
-  }
+	margin-left: 45px;
+  // @media (max-width: 768px) {
+  //   width: calc(100% - 40px);
+  // }
 }
 
 .content {
