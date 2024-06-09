@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import pizzas from './assets/pizza.json';
 
 import Header from './components/Header';
 import Categories from './components/Categories';
