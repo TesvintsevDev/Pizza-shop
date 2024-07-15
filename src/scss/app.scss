@@ -19,10 +19,9 @@ body {
   margin: 0 auto;
   border-radius: 10px;
   max-width: 1400px;
-	margin-left: 45px;
-  // @media (max-width: 768px) {
-  //   width: calc(100% - 40px);
-  // }
+  @media (max-width: 768px) {
+    width: calc(100% - 40px);
+  }
 }
 
 .content {
@@ -41,7 +40,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 3vw;
 
-    @media (max-width: 1380px) {
+    @media (max-width: 1425px) {
       grid-template-columns: 1fr 1fr 1fr;
     }
 
@@ -362,6 +361,7 @@ body {
 
         span {
           color: darken($color: $gray-line, $amount: 20);
+          font-weight: 500;
           font-weight: 600;
         }
 
