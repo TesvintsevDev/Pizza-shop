@@ -40,16 +40,13 @@ const Search = ({ searchValue, setSearchValue}) => {
       </svg>
       <input
 				type='text'
-        // ref={inputRef}
         value={searchValue}
-        // onChange={onChangeInput}
         onChange={(event) => setSearchValue(event.target.value)}
         className={styles.input}
         placeholder="Поиск пиццы..."
       />
       {searchValue && (
         <svg
-        //   onClick={onClickClear}
           onClick={() => setSearchValue('')}
           className={styles.clearIcon}
           viewBox="0 0 20 20"
