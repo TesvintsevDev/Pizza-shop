@@ -15,7 +15,6 @@ const Home = ({ searchValue }) => {
     sortProperty: 'rating',
   });
   const [currentPage, setCurrentPage] = useState(1)
-  console.log(currentPage);
 
   const onChangePage = (number) => {
     setCurrentPage(number);
