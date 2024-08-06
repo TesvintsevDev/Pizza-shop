@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+  const { searchValue } = useContext(SearchContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -14,7 +16,7 @@ const Home = ({ searchValue }) => {
     name: 'популярности',
     sortProperty: 'rating',
   });
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
 
   const onChangePage = (number) => {
     setCurrentPage(number);
@@ -29,20 +31,27 @@ const Home = ({ searchValue }) => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     fetch(
-      `https://631f412758a1c0fe9f64ba15.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+      `https://631f412758a1c0fe9f64ba15.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
     )
-      .then((res) => {
-        return res.json();
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setItems(data);
+        } else {
+          console.error('API returned invalid data');
+        }
+        setIsloading(false);
       })
-      .then((arr) => {
-        setItems(arr);
+      .catch((error) => {
+        console.error('Error fetching data', error);
         setIsloading(false);
       });
+
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
 
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
-  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
+  const skeletons = [...Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <>
@@ -52,7 +61,7 @@ const Home = ({ searchValue }) => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-      <Pagination currentPage={currentPage} onChangePage={onChangePage}/>
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </>
   );
 };
