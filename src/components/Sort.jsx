@@ -2,19 +2,19 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
-
-const list = [
-	{ name: 'популярности (DESC)', sortProperty: 'rating' },
-	{ name: 'популярности (ASC)', sortProperty: '-rating' },
-	{ name: 'цене (DESC)', sortProperty: 'price' },
-	{ name: 'цене (ASC)', sortProperty: '-price' },
-	{ name: 'алфавиту (DESC)', sortProperty: 'title' },
-	{ name: 'алфавиту (ASC)', sortProperty: '-title' },
+export const sortList = [
+  { name: 'популярности (DESC)', sortProperty: 'rating' },
+  { name: 'популярности (ASC)', sortProperty: '-rating' },
+  { name: 'цене (DESC)', sortProperty: 'price' },
+  { name: 'цене (ASC)', sortProperty: '-price' },
+  { name: 'алфавиту (DESC)', sortProperty: 'title' },
+  { name: 'алфавиту (ASC)', sortProperty: '-title' },
 ];
 
 const Sort = () => {
-	const dispatch = useDispatch();
-	const sort = useSelector((state) => state.filter.sort);
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
+
   const [visiblePopup, setVisiblePopup] = useState(false);
 
   const toggleVisiblePopup = () => {
@@ -22,7 +22,7 @@ const Sort = () => {
   };
 
   const onSelectItem = (obj) => {
-    dispatch(setSort(obj))
+    dispatch(setSort(obj));
     setVisiblePopup(false);
   };
 
@@ -46,7 +46,7 @@ const Sort = () => {
       {visiblePopup && (
         <div className="sort__popup">
           <ul>
-            {list.map((obj, index) => (
+            {sortList.map((obj, index) => (
               <li
                 key={index}
                 onClick={() => onSelectItem(obj)}
