@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
@@ -14,6 +14,8 @@ export const sortList = [
 const Sort = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
+  const sortRef = useRef()
+	console.log(sortRef);
 
   const [visiblePopup, setVisiblePopup] = useState(false);
 
@@ -26,8 +28,40 @@ const Sort = () => {
     setVisiblePopup(false);
   };
 
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (!event.path.includes(sortRef.current)) {
+  //       setVisiblePopup(false)
+  //       console.log('CLICK OUTSIDE')
+  //     }
+  //   }  
+
+  //   document.body.addEventListener('click', handleClickOutside)
+
+  //   return () => {
+  //     console.log('ONMOUNT')
+  //     document.body.removeEventListener('click', handleClickOutside)
+  //   }
+  // }, [])
+
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (sortRef.current && !sortRef.current.contains(event.target)) {
+				setVisiblePopup(false);
+				console.log('CLICK OUTSIDE');
+			}
+		};
+	
+		document.body.addEventListener('click', handleClickOutside);
+	
+		return () => {
+			console.log('ONMOUNT');
+			document.body.removeEventListener('click', handleClickOutside);
+		};
+	}, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
